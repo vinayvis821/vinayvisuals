@@ -1,0 +1,44 @@
+.hideCursor {
+  &,
+  & * {
+    cursor: none !important;
+  }
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(2px) saturate(1.3);
+  border: 1.5px solid rgba(192, 192, 192, 0.4);
+  box-shadow:
+    inset 0 0 2px rgba(255, 255, 255, 0.03),
+    0 0 3px rgba(192, 192, 192, 0.2),
+    0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.recordDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: rgba(220, 0, 0, 0.5);
+  border-radius: 50%;
+  backdrop-filter: blur(2px) saturate(1.4);
+  border: 0.5px solid rgba(255, 80, 80, 0.3);
+  box-shadow: 0 0 3px rgba(220, 0, 0, 0.4);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

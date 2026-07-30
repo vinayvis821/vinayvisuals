@@ -1,0 +1,44 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 4rem;
+  overflow-y: auto;
+
+  @media (min-width: 1001px) {
+    margin-right: 25%;
+  }
+
+  @media (max-width: 1000px) {
+    padding: 4rem 2rem 2rem;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  max-width: 700px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
+
+.heroImage {
+  flex: 1;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 300px;
+  }
+}

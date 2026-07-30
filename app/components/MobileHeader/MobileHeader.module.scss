@@ -1,0 +1,48 @@
+.mobileHeader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  padding: 1rem;
+
+  @media (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #000;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburgerOpen {
+  .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}

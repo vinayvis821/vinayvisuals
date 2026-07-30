@@ -1,0 +1,198 @@
+$gold: #c8a415;
+$sidebar-bg: #2a2a2a;
+$text-muted: #999;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 90;
+
+  @media (min-width: 1001px) {
+    display: none;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 25%;
+  max-width: 320px;
+  height: 100vh;
+  background: $sidebar-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 3rem 1.5rem 2rem;
+  z-index: 100;
+  overflow-y: auto;
+
+  @media (max-width: 1000px) {
+    left: 0;
+    right: auto;
+    width: 280px;
+    align-items: flex-end;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.header {
+  text-align: right;
+  align-self: flex-end;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.nameButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  display: block;
+  margin-left: auto;
+}
+
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: $gold;
+  line-height: 1.3;
+  transition: color 0.2s;
+  text-align: right;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &Active {
+    color: #fff;
+  }
+}
+
+.nav {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.navItem {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 1rem;
+  color: $gold;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &Active {
+    color: #fff;
+  }
+}
+
+.footer {
+  margin-top: auto;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  text-align: right;
+}
+
+.footerLink {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 1rem;
+  color: $gold;
+  margin-bottom: 9rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+
+  &Active {
+    color: #fff;
+  }
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.contactLabel {
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.instagram {
+  color: #c9c9c9;
+  display: flex;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.contactEmail {
+  color: #c9c9c9;
+  font-size: 0.85rem;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.businessName {
+  font-size: 0.85rem;
+  color: #c9c9c9;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.madeWith {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  color: $gold;
+  text-align: center;
+  background: #1a1a1a;
+}
+
+.heart {
+  color: red;
+}

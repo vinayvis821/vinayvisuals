@@ -1,0 +1,30 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 700px;
+}
+
+.rowFull,
+.rowPair {
+  width: 100%;
+}
+
+.rowPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.rowTall {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.tallSide {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
