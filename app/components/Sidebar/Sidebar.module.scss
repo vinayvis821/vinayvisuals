@@ -144,6 +144,10 @@ $text-muted: #999;
   flex-direction: column;
   align-items: flex-end;
   gap: 0.25rem;
+
+  @media (max-width: 1000px) {
+    margin-bottom: 30px;
+  }
 }
 
 .contactLabel {
@@ -179,6 +183,10 @@ $text-muted: #999;
 .copyright {
   font-size: 0.75rem;
   color: $text-muted;
+
+  @media (max-width: 1000px) {
+    margin-bottom: 30px;
+  }
 }
 
 .madeWith {

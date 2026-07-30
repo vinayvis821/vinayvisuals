@@ -3,3 +3,8 @@
   overflow: hidden;
   position: relative;
 }
+
+.touchScroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

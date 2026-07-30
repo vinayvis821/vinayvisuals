@@ -1,10 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import styles from "./SmoothScroll.module.scss";
 
 interface SmoothScrollProps {
   children: React.ReactNode;
+}
+
+function getIsTouchDevice() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+function subscribe(cb: () => void) {
+  const mql = window.matchMedia("(pointer: coarse)");
+  mql.addEventListener("change", cb);
+  return () => mql.removeEventListener("change", cb);
 }
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
@@ -12,8 +23,11 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   const currentScroll = useRef(0);
   const targetScroll = useRef(0);
   const rafId = useRef<number>(0);
+  const isTouchDevice = useSyncExternalStore(subscribe, getIsTouchDevice, () => false);
 
   useEffect(() => {
+    if (isTouchDevice) return;
+
     const el = scrollRef.current;
     if (!el) return;
 
@@ -49,10 +63,13 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       el.removeEventListener("wheel", handleWheel);
       cancelAnimationFrame(rafId.current);
     };
-  }, []);
+  }, [isTouchDevice]);
 
   return (
-    <div ref={scrollRef} className={styles.scrollContainer}>
+    <div
+      ref={scrollRef}
+      className={`${styles.scrollContainer} ${isTouchDevice ? styles.touchScroll : ""}`}
+    >
       {children}
     </div>
   );
