@@ -8,7 +8,7 @@ const cantarell = Cantarell({
 });
 
 export const metadata: Metadata = {
-  title: "Vinay Viswanathan — Photography & Videography",
+  title: "VinayVisuals",
   description:
     "Seattle based photographer and videographer capturing authentic experiences.",
 };
