@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { NavItem } from "./NavItem";
 import styles from "./Sidebar.module.scss";
 
@@ -13,6 +14,17 @@ interface SidebarProps {
 }
 
 export function Sidebar({ activeTab, onTabChange, isOpen, onClose }: SidebarProps) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && (
