@@ -23,6 +23,7 @@ export function GalleryImage({ aspectRatio, src, location, onClick }: GalleryIma
           alt=""
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
+          unoptimized
           className={`${styles.image} ${loaded ? styles.imageLoaded : ""}`}
           onLoad={() => setLoaded(true)}
         />

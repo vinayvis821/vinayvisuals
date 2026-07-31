@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GalleryImage } from "../GalleryImage";
 import { GalleryVideo } from "../GalleryVideo";
 import { Lightbox } from "../Lightbox";
+import { getImages } from "../../actions/getImages";
 import styles from "./Gallery.module.scss";
 
 type LayoutItem =
@@ -68,8 +69,14 @@ interface GalleryProps {
 
 export function Gallery({ activeTab }: GalleryProps) {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
   const isLandscape = activeTab === "Landscape";
   const isVideo = activeTab === "Videography";
+
+  useEffect(() => {
+    if (isVideo) return;
+    getImages("").then(setImages);
+  }, [activeTab, isVideo]);
 
   if (isVideo) {
     return (
@@ -84,23 +91,30 @@ export function Gallery({ activeTab }: GalleryProps) {
   }
 
   const layout = GALLERY_LAYOUTS[activeTab] ?? GALLERY_LAYOUTS.Moments;
-  let locIdx = 0;
+  let imgIdx = 0;
+
+  const getNextImage = (): string | undefined => {
+    if (images.length === 0) return undefined;
+    const img = images[imgIdx % images.length];
+    imgIdx++;
+    return img;
+  };
 
   const getLocation = (): string | undefined => {
     if (!isLandscape) return undefined;
-    const loc = LANDSCAPE_LOCATIONS[locIdx % LANDSCAPE_LOCATIONS.length];
-    locIdx++;
-    return loc;
+    return LANDSCAPE_LOCATIONS[(imgIdx - 1) % LANDSCAPE_LOCATIONS.length];
   };
 
   return (
     <div className={styles.gallery}>
       {layout.map((item, i) => {
         if (item.type === "full") {
+          const src = getNextImage();
           return (
             <div key={i} className={styles.rowFull}>
               <GalleryImage
                 aspectRatio="16 / 9"
+                src={src}
                 location={getLocation()}
                 onClick={() => setLightbox("16 / 9")}
               />
@@ -108,21 +122,27 @@ export function Gallery({ activeTab }: GalleryProps) {
           );
         }
         if (item.type === "tall") {
+          const src1 = getNextImage();
+          const src2 = getNextImage();
+          const src3 = getNextImage();
           return (
             <div key={i} className={styles.rowTall}>
               <GalleryImage
                 aspectRatio="3 / 5"
+                src={src1}
                 location={getLocation()}
                 onClick={() => setLightbox("3 / 5")}
               />
               <div className={styles.tallSide}>
                 <GalleryImage
                   aspectRatio="1 / 1"
+                  src={src2}
                   location={getLocation()}
                   onClick={() => setLightbox("1 / 1")}
                 />
                 <GalleryImage
                   aspectRatio="1 / 1"
+                  src={src3}
                   location={getLocation()}
                   onClick={() => setLightbox("1 / 1")}
                 />
@@ -130,15 +150,19 @@ export function Gallery({ activeTab }: GalleryProps) {
             </div>
           );
         }
+        const src1 = getNextImage();
+        const src2 = getNextImage();
         return (
           <div key={i} className={styles.rowPair}>
             <GalleryImage
               aspectRatio="1 / 1"
+              src={src1}
               location={getLocation()}
               onClick={() => setLightbox("1 / 1")}
             />
             <GalleryImage
               aspectRatio="1 / 1"
+              src={src2}
               location={getLocation()}
               onClick={() => setLightbox("1 / 1")}
             />
