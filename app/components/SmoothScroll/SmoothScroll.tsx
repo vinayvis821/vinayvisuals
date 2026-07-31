@@ -32,6 +32,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
+      if (el.dataset.scrollLocked === "true") return;
       e.preventDefault();
       targetScroll.current += e.deltaY;
       targetScroll.current = Math.max(
@@ -44,13 +45,15 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       start + (end - start) * factor;
 
     const animate = () => {
-      currentScroll.current = lerp(currentScroll.current, targetScroll.current, 0.08);
+      if (el.dataset.scrollLocked !== "true") {
+        currentScroll.current = lerp(currentScroll.current, targetScroll.current, 0.08);
 
-      if (Math.abs(currentScroll.current - targetScroll.current) > 0.5) {
-        el.scrollTop = currentScroll.current;
-      } else {
-        currentScroll.current = targetScroll.current;
-        el.scrollTop = targetScroll.current;
+        if (Math.abs(currentScroll.current - targetScroll.current) > 0.5) {
+          el.scrollTop = currentScroll.current;
+        } else {
+          currentScroll.current = targetScroll.current;
+          el.scrollTop = targetScroll.current;
+        }
       }
 
       rafId.current = requestAnimationFrame(animate);
@@ -68,6 +71,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   return (
     <div
       ref={scrollRef}
+      data-smooth-scroll
       className={`${styles.scrollContainer} ${isTouchDevice ? styles.touchScroll : ""}`}
     >
       {children}

@@ -13,8 +13,11 @@ interface LightboxProps {
 export function Lightbox({ aspectRatio, src, onClose }: LightboxProps) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const scrollContainer = document.querySelector("[data-smooth-scroll]") as HTMLElement | null;
+    if (scrollContainer) scrollContainer.dataset.scrollLocked = "true";
     return () => {
       document.body.style.overflow = "";
+      if (scrollContainer) delete scrollContainer.dataset.scrollLocked;
     };
   }, []);
 

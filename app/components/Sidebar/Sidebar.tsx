@@ -15,13 +15,17 @@ interface SidebarProps {
 
 export function Sidebar({ activeTab, onTabChange, isOpen, onClose }: SidebarProps) {
   useEffect(() => {
+    const scrollContainer = document.querySelector("[data-smooth-scroll]") as HTMLElement | null;
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      if (scrollContainer) scrollContainer.dataset.scrollLocked = "true";
     } else {
       document.body.style.overflow = "";
+      if (scrollContainer) delete scrollContainer.dataset.scrollLocked;
     }
     return () => {
       document.body.style.overflow = "";
+      if (scrollContainer) delete scrollContainer.dataset.scrollLocked;
     };
   }, [isOpen]);
 
