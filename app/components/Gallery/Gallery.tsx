@@ -68,7 +68,7 @@ interface GalleryProps {
 }
 
 export function Gallery({ activeTab }: GalleryProps) {
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<{ aspectRatio: string; src?: string } | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const isLandscape = activeTab === "Landscape";
   const isVideo = activeTab === "Videography";
@@ -116,7 +116,7 @@ export function Gallery({ activeTab }: GalleryProps) {
                 aspectRatio="16 / 9"
                 src={src}
                 location={getLocation()}
-                onClick={() => setLightbox("16 / 9")}
+                onClick={() => setLightbox({ aspectRatio: "16 / 9", src })}
               />
             </div>
           );
@@ -131,20 +131,20 @@ export function Gallery({ activeTab }: GalleryProps) {
                 aspectRatio="3 / 5"
                 src={src1}
                 location={getLocation()}
-                onClick={() => setLightbox("3 / 5")}
+                onClick={() => setLightbox({ aspectRatio: "3 / 5", src: src1 })}
               />
               <div className={styles.tallSide}>
                 <GalleryImage
                   aspectRatio="1 / 1"
                   src={src2}
                   location={getLocation()}
-                  onClick={() => setLightbox("1 / 1")}
+                  onClick={() => setLightbox({ aspectRatio: "1 / 1", src: src2 })}
                 />
                 <GalleryImage
                   aspectRatio="1 / 1"
                   src={src3}
                   location={getLocation()}
-                  onClick={() => setLightbox("1 / 1")}
+                  onClick={() => setLightbox({ aspectRatio: "1 / 1", src: src3 })}
                 />
               </div>
             </div>
@@ -158,20 +158,20 @@ export function Gallery({ activeTab }: GalleryProps) {
               aspectRatio="1 / 1"
               src={src1}
               location={getLocation()}
-              onClick={() => setLightbox("1 / 1")}
+              onClick={() => setLightbox({ aspectRatio: "1 / 1", src: src1 })}
             />
             <GalleryImage
               aspectRatio="1 / 1"
               src={src2}
               location={getLocation()}
-              onClick={() => setLightbox("1 / 1")}
+              onClick={() => setLightbox({ aspectRatio: "1 / 1", src: src2 })}
             />
           </div>
         );
       })}
 
       {lightbox && (
-        <Lightbox aspectRatio={lightbox} onClose={() => setLightbox(null)} />
+        <Lightbox aspectRatio={lightbox.aspectRatio} src={lightbox.src} onClose={() => setLightbox(null)} />
       )}
     </div>
   );

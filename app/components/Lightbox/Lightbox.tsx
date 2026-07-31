@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import styles from "./Lightbox.module.scss";
 
 interface LightboxProps {
   aspectRatio: string;
+  src?: string;
   onClose: () => void;
 }
 
-export function Lightbox({ aspectRatio, onClose }: LightboxProps) {
+export function Lightbox({ aspectRatio, src, onClose }: LightboxProps) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -27,10 +29,22 @@ export function Lightbox({ aspectRatio, onClose }: LightboxProps) {
   return (
     <div className={styles.backdrop} onClick={onClose}>
       <div
-        className={styles.image}
+        className={styles.imageWrapper}
         style={{ aspectRatio }}
         onClick={(e) => e.stopPropagation()}
-      />
+      >
+        {src ? (
+          <Image
+            src={src}
+            alt=""
+            fill
+            unoptimized
+            className={styles.image}
+          />
+        ) : (
+          <div className={styles.placeholder} />
+        )}
+      </div>
     </div>
   );
 }
